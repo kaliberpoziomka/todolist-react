@@ -8,24 +8,28 @@ class AddTodo extends Component {
         id: ''
     }
 
-    handleSubmit(e) {
+    handleSubmit = (e) => {
         e.preventDefault();
+        this.props.addItem(this.state);
     }
 
-    handleChange(target) {
-        console.log(target.id);
+    handleChange = (e) => {
+        let id = Math.floor(Math.random()*1000);
+        this.setState({
+            [e.target.name]: e.target.value,
+            id: id
+        })
     }
 
     render() {
-        let id = () => Math.random();
 
         return(
-            <form className="container center" onSubmit={() => {this.handleSubmit()}}>
+            <form className="container center" onSubmit={this.handleSubmit}>
                 <h1 className="pink-text">Add Todo!</h1>
                 <label htmlFor="title">Add task title</label>
-                <input type="text" name="title" onChange={() => {this.handleChange()}}/>
+                <input type="text" name="title" onChange={this.handleChange}/>
                 <label htmlFor="title">Add task content</label>
-                <input type="text" name="content" onChange={() => {this.handleChange()}}/>
+                <input type="text" name="content" onChange={this.handleChange}/>
                 <button className="btn pink">Add Todo</button>
             </form>
         )

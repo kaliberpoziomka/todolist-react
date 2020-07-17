@@ -10,28 +10,30 @@ class App extends Component {
     ]
   }
   
+  removeItem = (id) => {
+    const todoList = this.state.todos.filter(item => {
+      return item.id !== id
+    });
+    this.setState({
+      todos: todoList
+    })
+    console.log(todoList)
+  }
+  
+  addItem = (todo) => {
+    let todos = [...this.state.todos, todo]
+    this.setState({
+      todos
+    })
+  }
   render() {
-    const removeItem = (id) => {
-      const todoList = this.state.todos.filter(item => {
-        return item.id !== id
-      });
-      this.setState({
-        todos: todoList
-      })
-      console.log(todoList)
-    }
-
-    const addItem = (todo) => {
-      console.log(todo);
-    }
-    
     if(this.state.todos.length) {
       return(
         <div className="App">
           <h1 className="blue-text center">Todo List</h1>
           <div className="center container">
-            <Todo todos={this.state.todos} removeItem={removeItem} />
-            <AddTodo addItem={addItem} />
+            <Todo todos={this.state.todos} removeItem={this.removeItem} />
+            <AddTodo addItem={this.addItem}/>
           </div>
         </div>
       )
@@ -40,6 +42,7 @@ class App extends Component {
         <div className="App">
           <h1 className="blue-text center">Todo List</h1>
           <p className="center">You have no tasks!</p>
+          <AddTodo addItem={this.addItem}/>
         </div>
       )
     }
